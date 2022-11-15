@@ -20,15 +20,10 @@ public class ObjectPool : MonoBehaviour
         }
         return bulletQ.Dequeue();
     }
-    public void ReturnBullet(Bullet bullet, float returnTime = 0f)
+
+    public void ReturnBullet(Bullet bullet)
     {
         if (bullet == null) return;
-        if (returnTime < 0f) returnTime = 0f;
-        StartCoroutine(_ReturnBullet(bullet, returnTime));
-    }
-    IEnumerator _ReturnBullet(Bullet bullet, float returnTime)
-    {
-        yield return new WaitForSeconds(returnTime);
         bullet.gameObject.SetActive(false);
         bulletQ.Enqueue(bullet);
     }
