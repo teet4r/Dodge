@@ -31,11 +31,13 @@ public class Player : MonoBehaviour
     public void GetDamage(int damage)
     {
         curHp -= damage;
+        GameManager.instance.AddScore(-25);
         if (curHp < 0)
         {
             curHp = 0;
             isAlive = false;
             UpdateState();
+            GameManager.instance.isGameOver = true;
             gameObject.SetActive(false);
         }
         UpdateState();
