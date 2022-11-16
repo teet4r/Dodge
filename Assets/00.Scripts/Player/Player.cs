@@ -31,13 +31,15 @@ public class Player : MonoBehaviour
     public void GetDamage(int damage)
     {
         curHp -= damage;
-        GameManager.instance.AddScore(-25);
+        GameManager.instance.AddScore(-damage);
         if (curHp < 0)
         {
             curHp = 0;
             isAlive = false;
-            UpdateState();
             GameManager.instance.isGameOver = true;
+            MainCanvas.instance.gameOver.gameObject.SetActive(true);
+            Camera.main.transform.parent = Stage.instance.transform;
+            UpdateState();
             gameObject.SetActive(false);
         }
         UpdateState();

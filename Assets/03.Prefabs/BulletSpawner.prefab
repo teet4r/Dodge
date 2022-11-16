@@ -113,4 +113,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnRateMin: 0.5
   spawnRateMax: 2
+  rotationSpeed: 60
   isFiring: 0

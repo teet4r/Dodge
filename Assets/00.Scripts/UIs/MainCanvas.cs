@@ -11,4 +11,5 @@ public class MainCanvas : MonoBehaviour
 
     public static MainCanvas instance = null;
     public Score score;
+    public GameOver gameOver;
 }

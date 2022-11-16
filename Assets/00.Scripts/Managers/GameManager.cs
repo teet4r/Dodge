@@ -21,7 +21,8 @@ public class GameManager : MonoBehaviour
                 new Vector3(Random.Range(-Stage.instance.mapSize * 5f + 1f, Stage.instance.mapSize * 5f - 1f),  // x
                             1f,                                                                                 // y
                             Random.Range(-Stage.instance.mapSize * 5f + 1f, Stage.instance.mapSize * 5f - 1f)), // z
-                Quaternion.identity
+                Quaternion.identity,
+                parent.transform
             );
 
         StartCoroutine(_ScoreUpdate());
@@ -46,13 +47,13 @@ public class GameManager : MonoBehaviour
     [Header("게임 상태 변수")]
     public bool isGameOver;
     [Header("불릿 스포너")]
+    public GameObject parent;
     public BulletSpawner bulletSpawnerPrefab;
     public int bulletSpawnerCount;
     [Header("점수 관련 변수")]
+    public int score;
     [Tooltip("점수 상승 폭")]
     public int scoreMultiplier;
     [Tooltip("초당 scoreMultiplier 획득")]
     public int scorePerSecond;
-
-    int score;
 }

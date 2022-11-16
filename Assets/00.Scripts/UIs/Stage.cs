@@ -11,6 +11,11 @@ public class Stage : MonoBehaviour
         Initialize();
     }
 
+    void Start()
+    {
+        StartCoroutine(_Rotate());
+    }
+
     void Initialize()
     {
         Vector3 variableScale = Vector3.right * 10 * m_mapSize + Vector3.up * 3 + Vector3.forward;
@@ -30,8 +35,18 @@ public class Stage : MonoBehaviour
         m_walls[3].transform.localScale = variableScale;
     }
 
+    IEnumerator _Rotate()
+    {
+        while (Player.instance.isAlive)
+        {
+            transform.Rotate(0f, rotationSpeed * Time.deltaTime, 0f);
+            yield return null;
+        }
+    }
+
     public static Stage instance = null;
     public float mapSize { get { return m_mapSize; } }
+    public float rotationSpeed;
 
     [Header("스테이지 크기 변수")]
     [SerializeField]
