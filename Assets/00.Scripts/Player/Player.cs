@@ -31,31 +31,42 @@ public class Player : MonoBehaviour
     public void GetDamage(int damage)
     {
         curHp -= damage;
-        GameManager.instance.AddScore(-damage);
-        if (curHp < 0)
+        if (curHp <= 0)
+            Die();
+        else
         {
-            curHp = 0;
-            isAlive = false;
-            GameManager.instance.isGameOver = true;
-            MainCanvas.instance.gameOver.gameObject.SetActive(true);
-            Camera.main.transform.parent = Stage.instance.transform;
-            UpdateState();
-            gameObject.SetActive(false);
+            GameManager.instance.AddScore(-damage);
+            UpdateBodyColor();
         }
-        UpdateState();
     }
 
-    void UpdateState()
+    public void Die()
+    {
+        // 자신 변수 먼저 업데이트
+        curHp = 0;
+        isAlive = false;
+        UpdateBodyColor();
+
+        // 다른 클래스 변수 업데이트
+        GameManager.instance.isGameOver = true;
+        Camera.main.transform.parent = Stage.instance.transform; // 카메라가 플레이어에게 달려있기 때문에 비활성화 시키기 전에 미리 카메라의 부모를 재설정
+        MainCanvas.instance.gameOver.gameObject.SetActive(true); // 게임 오버 관련 오브젝트 활성화
+        
+        // 자신 비활성화
+        gameObject.SetActive(false);
+    }
+
+    public void UpdateBodyColor()
     {
         m_renderer.material.color = new Color(m_color.r, (float)curHp / maxHp, (float)curHp / maxHp);
     }
 
-    void AutoHeal()
+    public void AutoHeal()
     {
         if (Time.time - autoHealPrevTime >= autoHealIntervalTime)
         {
             curHp = Mathf.Min(curHp + autoHealAmount, maxHp);
-            UpdateState();
+            UpdateBodyColor();
             autoHealPrevTime = Time.time;
         }
     }

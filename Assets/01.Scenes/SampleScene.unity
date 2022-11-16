@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028328, g: 0.22571322, b: 0.30692163, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -525,7 +525,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
-  maxHp: 150
+  maxHp: 200
   curHp: 200
   isAlive: 0
   autoHealAmount: 1
@@ -1381,7 +1381,6 @@ MonoBehaviour:
   bulletSpawnerCount: 12
   score: 0
   scoreMultiplier: 3
-  scorePerSecond: 10
 --- !u!1 &1531379343
 GameObject:
   m_ObjectHideFlags: 0

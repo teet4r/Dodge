@@ -29,7 +29,6 @@ public class BlinkingText : MonoBehaviour
         isBlinking = true;
         while (true)
         {
-            Debug.Log("여기1 " + Time.time);
             for (float i = 0f; i <= 1f; i += 0.02f)
             {
                 m_text.color = new Color(m_text.color.r, m_text.color.g, m_text.color.b, i);
@@ -40,7 +39,6 @@ public class BlinkingText : MonoBehaviour
                 m_text.color = new Color(m_text.color.r, m_text.color.g, m_text.color.b, i);
                 yield return new WaitForSeconds(0.01f / blinkingPerSecond);
             }
-            Debug.Log("여기2 " + Time.time);
         }
     }
 

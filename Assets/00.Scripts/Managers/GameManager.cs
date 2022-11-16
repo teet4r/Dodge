@@ -31,15 +31,21 @@ public class GameManager : MonoBehaviour
     public void AddScore(int score)
     {
         this.score = Mathf.Max(this.score + score, 0);
+        MainCanvas.instance.score.UpdateScoreText(this.score);
     }
 
+    /// <summary>
+    /// 0.1초마다 점수 상승
+    /// 스코어 업데이트가 종료돼야 게임 오버로 넘어감
+    /// </summary>
+    /// <returns></returns>
     IEnumerator _ScoreUpdate()
     {
-        while (!isGameOver)
+        WaitForSeconds wfs = new WaitForSeconds(0.1f);
+        while (Player.instance.isAlive)
         {
             AddScore(scoreMultiplier);
-            MainCanvas.instance.score.UpdateScoreText(score);
-            yield return new WaitForSeconds(1f / Mathf.Max(scorePerSecond, 1f));
+            yield return wfs;
         }
     }
 
@@ -54,6 +60,4 @@ public class GameManager : MonoBehaviour
     public int score;
     [Tooltip("점수 상승 폭")]
     public int scoreMultiplier;
-    [Tooltip("초당 scoreMultiplier 획득")]
-    public int scorePerSecond;
 }
