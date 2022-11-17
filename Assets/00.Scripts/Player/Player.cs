@@ -37,6 +37,7 @@ public class Player : MonoBehaviour
         {
             GameManager.instance.AddScore(-damage);
             UpdateBodyColor();
+            MainCanvas.instance.score.MakeDamageInfoText(-damage);
         }
     }
 
