@@ -1,31 +1,53 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     void Awake()
     {
         instance = this;
+
+        if (!PlayerPrefs.HasKey(PlayerPrefsKey.REGISTERED))
+        {
+            PlayerPrefs.SetInt(PlayerPrefsKey.REGISTERED, 1);
+            PlayerPrefs.SetInt(PlayerPrefsKey.BEST_SCORE, 0);
+        }
     }
 
     void Start()
     {
         isGameOver = false;
         score = 0;
+        prevTime = Time.time;
 
         for (int i = 0; i < bulletSpawnerCount; i++)
             Instantiate(
-                bulletSpawnerPrefab,
+                bulletSpawnerPrefabs[Random.Range(0, bulletSpawnerPrefabs.Length)],
                 new Vector3(Random.Range(-Stage.instance.mapSize * 5f + 1f, Stage.instance.mapSize * 5f - 1f),  // x
                             1f,                                                                                 // y
                             Random.Range(-Stage.instance.mapSize * 5f + 1f, Stage.instance.mapSize * 5f - 1f)), // z
                 Quaternion.identity,
                 parent.transform
             );
+    }
 
-        StartCoroutine(_ScoreUpdate());
+    void Update()
+    {
+        if (!isGameOver)
+        {
+            if (Time.time - prevTime >= 0.1f)
+            {
+                AddScore(scoreMultiplier);
+                prevTime = Time.time;
+            }
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.R))
+                SceneManager.LoadScene(SceneName.PLAY);
+        }
     }
 
     public void AddScore(int score)
@@ -34,19 +56,11 @@ public class GameManager : MonoBehaviour
         MainCanvas.instance.score.UpdateScoreText(this.score);
     }
 
-    /// <summary>
-    /// 0.1초마다 점수 상승
-    /// 스코어 업데이트가 종료돼야 게임 오버로 넘어감
-    /// </summary>
-    /// <returns></returns>
-    IEnumerator _ScoreUpdate()
+    public void GameEnd()
     {
-        WaitForSeconds wfs = new WaitForSeconds(0.1f);
-        while (Player.instance.isAlive)
-        {
-            AddScore(scoreMultiplier);
-            yield return wfs;
-        }
+        isGameOver = true;
+        PlayerPrefs.SetInt(PlayerPrefsKey.BEST_SCORE, Mathf.Max(score, PlayerPrefs.GetInt(PlayerPrefsKey.BEST_SCORE)));
+        MainCanvas.instance.gameOver.gameObject.SetActive(true); // 게임 오버 관련 오브젝트 활성화
     }
 
     public static GameManager instance;
@@ -54,10 +68,12 @@ public class GameManager : MonoBehaviour
     public bool isGameOver;
     [Header("불릿 스포너")]
     public GameObject parent;
-    public BulletSpawner bulletSpawnerPrefab;
+    public BulletSpawner[] bulletSpawnerPrefabs;
     public int bulletSpawnerCount;
     [Header("점수 관련 변수")]
     public int score;
     [Tooltip("점수 상승 폭")]
     public int scoreMultiplier;
+
+    float prevTime;
 }

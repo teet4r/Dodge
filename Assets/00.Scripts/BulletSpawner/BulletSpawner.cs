@@ -30,29 +30,7 @@ public class BulletSpawner : MonoBehaviour
         }
     }
 
-    IEnumerator _Fire()
-    {
-        if (isFiring) yield break;
-        isFiring = true;
-        while (Player.instance.isAlive)
-        {
-            yield return new WaitForSeconds(Random.Range(spawnRateMin, spawnRateMax));
-            MakeBullet();
-        }
-        isFiring = false;
-    }
-
-    void MakeBullet()
-    {
-        var bullet = ObjectPool.instance.GetBullet();
-        bullet.transform.position = transform.position;
-        bullet.transform.rotation = transform.rotation;
-        bullet.transform.LookAt(Player.instance.transform);
-        bullet.gameObject.SetActive(true);
-    }
-
-    public float spawnRateMin;
-    public float spawnRateMax;
+    protected virtual IEnumerator _Fire() { yield break; }
 
     public bool isFiring;
 

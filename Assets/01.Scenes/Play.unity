@@ -1378,8 +1378,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isGameOver: 0
   parent: {fileID: 814978961}
-  bulletSpawnerPrefab: {fileID: 8484461392349830976, guid: e26f5a22d62543242ad5997e4961c815, type: 3}
-  bulletSpawnerCount: 12
+  bulletSpawnerPrefabs:
+  - {fileID: -5924431204935858292, guid: e26f5a22d62543242ad5997e4961c815, type: 3}
+  - {fileID: -2047700347638243049, guid: f02c6020f761e7f448c14ba7e65a4133, type: 3}
+  bulletSpawnerCount: 10
   score: 0
   scoreMultiplier: 3
 --- !u!1 &1531379343

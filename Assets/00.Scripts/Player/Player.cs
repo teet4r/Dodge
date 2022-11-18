@@ -48,11 +48,10 @@ public class Player : MonoBehaviour
         isAlive = false;
         UpdateBodyColor();
 
-        // 다른 클래스 변수 업데이트
-        GameManager.instance.isGameOver = true;
+        // 다른 클래스 함수 호출
+        GameManager.instance.GameEnd();
         Camera.main.transform.parent = Stage.instance.transform; // 카메라가 플레이어에게 달려있기 때문에 비활성화 시키기 전에 미리 카메라의 부모를 재설정
-        MainCanvas.instance.gameOver.gameObject.SetActive(true); // 게임 오버 관련 오브젝트 활성화
-        
+
         // 자신 비활성화
         gameObject.SetActive(false);
     }
