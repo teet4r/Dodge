@@ -21,17 +21,29 @@ public class Bullet : MonoBehaviour, IReturnable
     {
         if (collision.gameObject.CompareTag(Tag.PLAYER))
         {
-            collision.gameObject.GetComponent<Player>().GetDamage((int)rb.velocity.magnitude);
+            collision.gameObject.GetComponent<Player>().GetDamage((int)speed);
             ObjectPool.instance.ReturnBullet(this);
+            MakeExplosionEffect();
         }
-        else if (collision.gameObject.CompareTag(Tag.WALL))
+        else if (collision.gameObject.CompareTag(Tag.WALL) ||
+                 collision.gameObject.CompareTag(Tag.SHIELD))
+        {
             ObjectPool.instance.ReturnBullet(this);
+            MakeExplosionEffect();
+        }
     }
 
     public IEnumerator Return()
     {
         yield return new WaitForSeconds(m_returnTime);
         ObjectPool.instance.ReturnBullet(this);
+    }
+
+    void MakeExplosionEffect()
+    {
+        var explosion = ObjectPool.instance.GetBigExplosionEffect();
+        explosion.transform.position = transform.position;
+        explosion.gameObject.SetActive(true);
     }
 
     public float speed;

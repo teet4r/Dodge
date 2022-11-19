@@ -8,15 +8,16 @@ TagManager:
   - Wall
   - Bullet
   - BulletSpawner
+  - Shield
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - Bullet
-  - 
+  - Shield
   - 
   - 
   - 

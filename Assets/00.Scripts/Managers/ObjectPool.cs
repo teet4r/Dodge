@@ -48,13 +48,34 @@ public class ObjectPool : MonoBehaviour
         damageInfoTextQ.Enqueue(text);
     }
     #endregion
+    #region BigExplosionEffect
+    public BigExplosionEffect GetBigExplosionEffect()
+    {
+        if (explosionEffectQ.Count == 0)
+        {
+            BigExplosionEffect bigExplosionEffect = Instantiate(explosionEffectPrefab);
+            bigExplosionEffect.gameObject.SetActive(false);
+            return bigExplosionEffect;
+        }
+        return explosionEffectQ.Dequeue();
+    }
+
+    public void ReturnBigExplosionEffect(BigExplosionEffect bigExplosionEffect)
+    {
+        if (bigExplosionEffect == null) return;
+        bigExplosionEffect.gameObject.SetActive(false);
+        explosionEffectQ.Enqueue(bigExplosionEffect);
+    }
+    #endregion
 
     public static ObjectPool instance = null;
 
     [Header("Prefabs")]
     public Bullet bulletPrefab;
     public TextMeshProUGUI damageInfoTextPrefab;
+    public BigExplosionEffect explosionEffectPrefab;
 
     Queue<Bullet> bulletQ = new Queue<Bullet>();
     Queue<TextMeshProUGUI> damageInfoTextQ = new Queue<TextMeshProUGUI>();
+    Queue<BigExplosionEffect> explosionEffectQ = new Queue<BigExplosionEffect>();
 }
