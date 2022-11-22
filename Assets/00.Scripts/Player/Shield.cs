@@ -12,12 +12,12 @@ public class Shield : MonoBehaviour
         m_sphereCollider = GetComponent<SphereCollider>();
         m_renderer = GetComponent<Renderer>();
 
-        m_color = m_renderer.material.color;
+        m_originColor = m_renderer.material.color;
     }
 
     void OnEnable()
     {
-        isOn = true;
+        ShieldOn(5);
     }
 
     void Update()
@@ -28,37 +28,60 @@ public class Shield : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag(Tag.BULLET))
-            GetDamage();
+            AddShield(-1);
     }
 
-    void GetDamage()
+    /// <summary>
+    /// for initialization
+    /// </summary>
+    /// <param name="initialHitCount"></param>
+    void ShieldOn(int initialHitCount)
+    {
+        if (initialHitCount < 1)
+        {
+            Debug.Log("인자 제대로 전달해라.");
+            return;
+        }
+        if (isOn) return;
+        isOn = true;
+        hitCount = initialHitCount;
+        m_sphereCollider.enabled = true;
+        m_renderer.enabled = true;
+        m_renderer.material.color = m_originColor;
+    }
+
+    void ShieldOff()
     {
         if (!isOn) return;
-        hitCount--;
-        if (hitCount <= 0)
-        {
-            isOn = false;
-            m_sphereCollider.enabled = false;
-        }
-        if (m_hitRoutine != null)
-            StopCoroutine(m_hitRoutine);
-        m_hitRoutine = StartCoroutine(_GetHitEffect());
+        isOn = false;
+        hitCount = 0;
+        m_sphereCollider.enabled = false;
+        m_renderer.enabled = false;
     }
 
-    IEnumerator _GetHitEffect()
+    /// <summary>
+    /// using for other classes
+    /// </summary>
+    /// <param name="hitCount"></param>
+    void AddShield(int hitCount)
     {
-        for (float i = 0.5f; i >= 0f; i -= 0.01f)
+        if (!isOn)
         {
-            m_renderer.material.color = new Color(m_color.r, m_color.g, m_color.b, i);
-            yield return null;
+            ShieldOn(hitCount);
+            return;
+        }
+        else // isOn
+        {
+            this.hitCount += hitCount;
+            if (this.hitCount < 1)
+                ShieldOff();
         }
     }
 
-    public int hitCount;
-    public bool isOn;
+    public bool isOn { get; private set; } = false;
+    public int hitCount { get; private set; } = 0;
 
     SphereCollider m_sphereCollider;
     Renderer m_renderer;
-    Color m_color;
-    Coroutine m_hitRoutine;
+    Color m_originColor;
 }
