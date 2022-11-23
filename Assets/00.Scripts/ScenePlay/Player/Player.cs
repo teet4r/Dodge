@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
 
     void OnEnable()
     {
-        curHp = maxHp;
+        curHp = maxHp = GeneralManager.instance.curLevelSetting.playerMaxHp;
         isAlive = true;
         autoHealPrevTime = Time.time;
     }

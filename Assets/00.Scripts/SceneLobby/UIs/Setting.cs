@@ -6,11 +6,6 @@ using TMPro;
 
 public class Setting : MonoBehaviour
 {
-    void Awake()
-    {
-        SetGameLevel();
-    }
-
     public void OpenSettingPanel()
     {
         settingPanel.SetActive(true);
@@ -19,11 +14,6 @@ public class Setting : MonoBehaviour
     public void CloseSettingPanel()
     {
         settingPanel.SetActive(false);
-    }
-
-    public void SetGameLevel()
-    {
-        GeneralManager.instance.gameLevel = levelDropdown.value;
     }
 
     public Button settingButton;

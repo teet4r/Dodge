@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
             Algorithm.Swap(ref itemShieldMinTime, ref itemShieldMaxTime);
         #endregion
 
-        for (int i = 0; i < bulletSpawnerCount; i++)
+        for (int i = 0; i < GeneralManager.instance.curLevelSetting.spawnerCount; i++)
             Instantiate(
                 bulletSpawnerPrefabs[Random.Range(0, bulletSpawnerPrefabs.Length)],
                 new Vector3(Random.Range(-Stage.instance.mapInnerSideHalfLength, Stage.instance.mapInnerSideHalfLength),  // x
@@ -89,7 +89,6 @@ public class GameManager : MonoBehaviour
     public bool isGameOver;
     [Header("ºÒ¸´ ½ºÆ÷³Ê")]
     public BulletSpawner[] bulletSpawnerPrefabs;
-    public int bulletSpawnerCount;
     [Header("Á¡¼ö °ü·Ã º¯¼ö")]
     public int score;
     [Tooltip("Á¡¼ö »ó½Â Æø")]
