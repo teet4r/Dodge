@@ -67,6 +67,25 @@ public class ObjectPool : MonoBehaviour
         explosionEffectQ.Enqueue(bigExplosionEffect);
     }
     #endregion
+    #region ItemShield
+    public ItemShield GetItemShield()
+    {
+        if (itemShieldQ.Count == 0)
+        {
+            ItemShield itemShield = Instantiate(itemShieldPrefab, Stage.instance.items.transform);
+            itemShield.gameObject.SetActive(false);
+            return itemShield;
+        }
+        return itemShieldQ.Dequeue();
+    }
+
+    public void ReturnItemShield(ItemShield itemShield)
+    {
+        if (itemShield == null) return;
+        itemShield.gameObject.SetActive(false);
+        itemShieldQ.Enqueue(itemShield);
+    }
+    #endregion
 
     public static ObjectPool instance = null;
 
@@ -74,8 +93,10 @@ public class ObjectPool : MonoBehaviour
     public Bullet bulletPrefab;
     public TextMeshProUGUI damageInfoTextPrefab;
     public BigExplosionEffect explosionEffectPrefab;
+    public ItemShield itemShieldPrefab;
 
     Queue<Bullet> bulletQ = new Queue<Bullet>();
     Queue<TextMeshProUGUI> damageInfoTextQ = new Queue<TextMeshProUGUI>();
     Queue<BigExplosionEffect> explosionEffectQ = new Queue<BigExplosionEffect>();
+    Queue<ItemShield> itemShieldQ = new Queue<ItemShield>();
 }

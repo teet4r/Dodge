@@ -22,15 +22,21 @@ public class GameManager : MonoBehaviour
         score = 0;
         prevTime = Time.time;
 
+        #region Valid Check
+        if (itemShieldMinTime > itemShieldMaxTime)
+            Algorithm.Swap(ref itemShieldMinTime, ref itemShieldMaxTime);
+        #endregion
+
         for (int i = 0; i < bulletSpawnerCount; i++)
             Instantiate(
                 bulletSpawnerPrefabs[Random.Range(0, bulletSpawnerPrefabs.Length)],
-                new Vector3(Random.Range(-Stage.instance.mapSize * 5f + 1f, Stage.instance.mapSize * 5f - 1f),  // x
-                            1f,                                                                                 // y
-                            Random.Range(-Stage.instance.mapSize * 5f + 1f, Stage.instance.mapSize * 5f - 1f)), // z
+                new Vector3(Random.Range(-Stage.instance.mapInnerSideHalfLength, Stage.instance.mapInnerSideHalfLength),  // x
+                            1f,                                                                                           // y
+                            Random.Range(-Stage.instance.mapInnerSideHalfLength, Stage.instance.mapInnerSideHalfLength)), // z
                 Quaternion.identity,
-                parent.transform
+                Stage.instance.bulletSpawners.transform
             );
+        StartCoroutine(_MakeItemShield());
     }
 
     void Update()
@@ -63,17 +69,34 @@ public class GameManager : MonoBehaviour
         MainCanvas.instance.gameOver.gameObject.SetActive(true); // 게임 오버 관련 오브젝트 활성화
     }
 
+    IEnumerator _MakeItemShield()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(Random.Range(itemShieldMinTime, itemShieldMaxTime));
+            var itemShield = ObjectPool.instance.GetItemShield();
+            itemShield.transform.position = new Vector3(
+                Random.Range(-Stage.instance.mapInnerSideHalfLength, Stage.instance.mapInnerSideHalfLength),
+                1f,
+                Random.Range(-Stage.instance.mapInnerSideHalfLength, Stage.instance.mapInnerSideHalfLength)
+            );
+            itemShield.gameObject.SetActive(true);
+        }
+    }
+
     public static GameManager instance;
     [Header("게임 상태 변수")]
     public bool isGameOver;
     [Header("불릿 스포너")]
-    public GameObject parent;
     public BulletSpawner[] bulletSpawnerPrefabs;
     public int bulletSpawnerCount;
     [Header("점수 관련 변수")]
     public int score;
     [Tooltip("점수 상승 폭")]
     public int scoreMultiplier;
+    [Header("아이템 변수")]
+    public float itemShieldMinTime;
+    public float itemShieldMaxTime;
 
     float prevTime;
 }

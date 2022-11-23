@@ -255,6 +255,7 @@ Transform:
   - {fileID: 383100871}
   - {fileID: 1172051620}
   - {fileID: 814978962}
+  - {fileID: 1754056885}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -271,6 +272,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 5
+  bulletSpawners: {fileID: 814978961}
+  items: {fileID: 1754056884}
   m_mapSize: 5
   m_ground: {fileID: 1783782220}
   m_walls:
@@ -528,6 +531,7 @@ MonoBehaviour:
   moveSpeed: 10
   maxHp: 300
   curHp: 300
+  shield: {fileID: 602815006}
   isAlive: 0
   autoHealAmount: 2
   autoHealIntervalTime: 0.5
@@ -576,7 +580,7 @@ SphereCollider:
   m_GameObject: {fileID: 602815001}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -587,7 +591,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 602815001}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1102,6 +1106,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: -5317981537684826803, guid: 84a1b002ae2f65c47a50e80aa096b7ad, type: 3}
   damageInfoTextPrefab: {fileID: 3901225458419251653, guid: bc2bbe868721057449ee3bf1cfc57391, type: 3}
   explosionEffectPrefab: {fileID: 6519558513235771143, guid: acf39d9f4addf294d93fa56fa373961b, type: 3}
+  itemShieldPrefab: {fileID: 6356395056041332410, guid: 921be75d40d8ae944bf6536e3936f400, type: 3}
 --- !u!1 &1172051619
 GameObject:
   m_ObjectHideFlags: 0
@@ -1506,7 +1511,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isGameOver: 0
-  parent: {fileID: 814978961}
   bulletSpawnerPrefabs:
   - {fileID: -5924431204935858292, guid: e26f5a22d62543242ad5997e4961c815, type: 3}
   - {fileID: -2047700347638243049, guid: f02c6020f761e7f448c14ba7e65a4133, type: 3}
@@ -1514,6 +1518,8 @@ MonoBehaviour:
   bulletSpawnerCount: 7
   score: 0
   scoreMultiplier: 3
+  itemShieldMinTime: 4
+  itemShieldMaxTime: 8
 --- !u!1 &1531379343
 GameObject:
   m_ObjectHideFlags: 0
@@ -1851,6 +1857,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 1900673463}
+--- !u!1 &1754056884
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1754056885}
+  m_Layer: 0
+  m_Name: Items
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1754056885
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1754056884}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 396355836}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1783782220
 GameObject:
   m_ObjectHideFlags: 0

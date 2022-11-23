@@ -9,6 +9,7 @@ TagManager:
   - Bullet
   - BulletSpawner
   - Shield
+  - ItemShield
   layers:
   - Default
   - TransparentFX
