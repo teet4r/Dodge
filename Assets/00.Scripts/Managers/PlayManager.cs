@@ -3,17 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class PlayManager : MonoBehaviour
 {
     void Awake()
     {
         instance = this;
-
-        if (!PlayerPrefs.HasKey(PlayerPrefsKey.REGISTERED))
-        {
-            PlayerPrefs.SetInt(PlayerPrefsKey.REGISTERED, 1);
-            PlayerPrefs.SetInt(PlayerPrefsKey.BEST_SCORE, 0);
-        }
     }
 
     void Start()
@@ -45,14 +39,14 @@ public class GameManager : MonoBehaviour
         {
             if (Time.time - prevTime >= 0.1f)
             {
-                AddScore(scoreMultiplier);
+                AddScore(GeneralManager.instance.curLevelSetting.scoreMultiplier);
                 prevTime = Time.time;
             }
         }
         else
         {
             if (Input.GetKeyDown(KeyCode.R))
-                SceneManager.LoadScene(SceneName.PLAY);
+                SceneManager.LoadScene(SceneName.LOBBY);
         }
     }
 
@@ -76,23 +70,21 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(Random.Range(itemShieldMinTime, itemShieldMaxTime));
             var itemShield = ObjectPool.instance.GetItemShield();
             itemShield.transform.position = new Vector3(
-                Random.Range(-Stage.instance.mapInnerSideHalfLength, Stage.instance.mapInnerSideHalfLength),
+                Random.Range(-Stage.instance.mapInnerSideHalfLength + 4f, Stage.instance.mapInnerSideHalfLength - 4f),
                 1f,
-                Random.Range(-Stage.instance.mapInnerSideHalfLength, Stage.instance.mapInnerSideHalfLength)
+                Random.Range(-Stage.instance.mapInnerSideHalfLength + 4f, Stage.instance.mapInnerSideHalfLength - 4f)
             );
             itemShield.gameObject.SetActive(true);
         }
     }
 
-    public static GameManager instance;
+    public static PlayManager instance;
     [Header("게임 상태 변수")]
     public bool isGameOver;
     [Header("불릿 스포너")]
     public BulletSpawner[] bulletSpawnerPrefabs;
     [Header("점수 관련 변수")]
     public int score;
-    [Tooltip("점수 상승 폭")]
-    public int scoreMultiplier;
     [Header("아이템 변수")]
     public float itemShieldMinTime;
     public float itemShieldMaxTime;

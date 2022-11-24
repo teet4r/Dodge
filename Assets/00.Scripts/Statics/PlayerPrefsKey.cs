@@ -6,4 +6,5 @@ public class PlayerPrefsKey
 {
     public static readonly string REGISTERED = "Registered";
     public static readonly string BEST_SCORE = "BestScore";
+    public static readonly string LEVEL = "Level";
 }

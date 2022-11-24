@@ -9,8 +9,12 @@ public class LevelSetting
     {
         spawnerCount = args[0];
         playerMaxHp = args[1];
+        scoreMultiplier = args[2];
+        shieldDurability = args[3];
     }
 
     public int spawnerCount;
     public int playerMaxHp;
+    public int scoreMultiplier;
+    public int shieldDurability;
 }

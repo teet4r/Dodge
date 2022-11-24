@@ -1515,7 +1515,6 @@ MonoBehaviour:
   - {fileID: -5924431204935858292, guid: e26f5a22d62543242ad5997e4961c815, type: 3}
   - {fileID: -2047700347638243049, guid: f02c6020f761e7f448c14ba7e65a4133, type: 3}
   - {fileID: 2747270166394398245, guid: 8a6bd89c945f6034c857969310f979a5, type: 3}
-  bulletSpawnerCount: 7
   score: 0
   scoreMultiplier: 3
   itemShieldMinTime: 4

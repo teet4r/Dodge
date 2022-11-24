@@ -14,15 +14,20 @@ public class GeneralManager : MonoBehaviour
         instance = this;
         DontDestroyOnLoad(gameObject);
 
-        levels = new LevelSetting[]
+        RegisterPlayerPrefs();
+    }
+
+    void RegisterPlayerPrefs()
+    {
+        if (!PlayerPrefs.HasKey(PlayerPrefsKey.REGISTERED))
         {
-            new LevelSetting(5, 500),    // easy
-            new LevelSetting(9, 350),    // normal
-            new LevelSetting(13, 200)    // hard
-        };
+            PlayerPrefs.SetInt(PlayerPrefsKey.REGISTERED, 1);
+            PlayerPrefs.SetInt(PlayerPrefsKey.BEST_SCORE, 0);
+            PlayerPrefs.SetInt(PlayerPrefsKey.LEVEL, 0);
+        }
     }
 
     public static GeneralManager instance = null;
     public LevelSetting[] levels;
-    public LevelSetting curLevelSetting { get { return levels[LobbyCanvas.instance.setting.levelDropdown.value]; } }
+    public LevelSetting curLevelSetting { get { return levels[LobbyCanvas.instance.setting.levelDropdown.dropdown.value]; } }
 }

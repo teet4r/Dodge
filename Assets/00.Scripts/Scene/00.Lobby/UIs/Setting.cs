@@ -16,8 +16,14 @@ public class Setting : MonoBehaviour
         settingPanel.SetActive(false);
     }
 
+    public void LevelDropdownOnValueChanged()
+    {
+        if (PlayerPrefs.HasKey(PlayerPrefsKey.LEVEL))
+            PlayerPrefs.SetInt(PlayerPrefsKey.LEVEL, levelDropdown.dropdown.value);
+    }
+
     public Button settingButton;
     public GameObject settingPanel;
-    public TMP_Dropdown levelDropdown;
+    public LevelDropdown levelDropdown;
     public Button closeButton;
 }
