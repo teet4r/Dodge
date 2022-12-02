@@ -112,7 +112,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isFiring: 0
-  angle: 15
-  spawnCount: 50
-  spawnRate: 4
-  spawnInterval: 0.05
+  spiralSpawnerData: {fileID: 11400000, guid: 3890cf7cd092d3a47bee10e29f238803, type: 2}
