@@ -112,5 +112,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isFiring: 0
-  spawnRate: 3
-  bulletCountPerShot: 12
+  spreadSpawnerData: {fileID: 11400000, guid: 895cdf60abd32324988f7005d5272c41, type: 2}

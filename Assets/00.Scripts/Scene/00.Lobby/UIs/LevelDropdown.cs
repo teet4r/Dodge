@@ -10,6 +10,8 @@ public class LevelDropdown : MonoBehaviour
         dropdown = GetComponent<TMP_Dropdown>();
 
         dropdown.value = PlayerPrefs.GetInt(PlayerPrefsKey.LEVEL);
+
+
     }
 
     public TMP_Dropdown dropdown;

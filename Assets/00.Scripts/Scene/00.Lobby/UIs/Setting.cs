@@ -6,6 +6,11 @@ using TMPro;
 
 public class Setting : MonoBehaviour
 {
+    void OnEnable()
+    {
+        settingPanel.SetActive(false);
+    }
+
     public void OpenSettingPanel()
     {
         settingPanel.SetActive(true);

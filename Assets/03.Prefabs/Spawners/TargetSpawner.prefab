@@ -111,6 +111,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c27056eaf039daf4eba8298129bd4209, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnRateMin: 0.5
-  spawnRateMax: 2
   isFiring: 0
+  targetSpawnerData: {fileID: 11400000, guid: 12074846eb7034f47a6917311179eb94, type: 2}
