@@ -16,7 +16,7 @@
 ## 3. 사용언어 & 도구
 - C#
 - Visual Studio
-- Unity 3D
+- Unity 3D(에디터 버전: 2021.3.12
 
 </br>
 
