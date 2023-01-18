@@ -106,3 +106,8 @@
 
 </div>
 </details>
+
+</br>
+
+## 7. 링크
+- [플레이 영상 및 다운로드](https://drive.google.com/drive/folders/1BQRBXwcbqKP7jxQQLEF5ONfYi_rkeJyO)
